@@ -34,142 +34,186 @@ $pending_payments = $con->query("SELECT COUNT(*) as count FROM payments WHERE st
     <title>Payments - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-dark: #e63e00;
-            --primary-light: #ff6b35;
-            --bg-light: #f8f9fa;
-            --border-radius: 6px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
         }
-        
+
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            color: #ff4500 !important;
+            letter-spacing: -0.5px;
         }
-        
+
         .nav-link {
+            color: #1a1a1a !important;
             font-weight: 500;
-            transition: opacity 0.2s;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        
+
         .nav-link:hover {
-            opacity: 0.8;
+            color: #ff4500 !important;
         }
-        
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
         .stat-card {
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 6px;
             color: white;
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
         }
-        
+
         .stat-card:hover {
-            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
         }
-        
+
         .stat-card.revenue {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
         }
-        
+
         .stat-card.completed {
             background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
         }
-        
+
         .stat-card.pending {
             background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
         }
-        
-        .stat-card h5 {
-            font-weight: 600;
+
+        .stat-label {
             font-size: 0.9rem;
+            font-weight: 500;
             opacity: 0.95;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
-        
-        .stat-card .display-5 {
+
+        .stat-value {
+            font-size: 2.5rem;
             font-weight: 700;
-            font-size: 2rem;
+            margin: 0;
         }
-        
+
         .card {
             border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: white;
         }
-        
+
         .table {
-            border-radius: var(--border-radius);
+            margin-bottom: 0;
         }
-        
+
         .table thead {
-            background-color: var(--primary-color) !important;
+            background: #ff4500;
             color: white;
         }
-        
+
+        .table thead th {
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
         .table tbody tr:hover {
-            background-color: #f8f9fa;
+            background: #f9f9f9;
         }
-        
-        h1 {
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
         }
-        
+
         .badge {
             border-radius: 4px;
-            padding: 0.4rem 0.6rem;
-            font-weight: 500;
-        }
-        
-        .btn-simulate {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-            border-radius: var(--border-radius);
+            padding: 0.4rem 0.8rem;
             font-weight: 500;
             font-size: 0.85rem;
-            padding: 0.4rem 0.8rem;
-            transition: all 0.2s;
         }
-        
-        .btn-simulate:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-simulate {
+            background: #ff4500;
             color: white;
         }
-        
+
+        .btn-simulate:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
         .alert {
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 6px;
+            border-left: 4px solid;
+            margin-bottom: 1.5rem;
         }
-        
+
         .alert-success {
-            background-color: #d1fae5;
-            color: #065f46;
+            background: #f0fdf4;
+            color: #166534;
+            border-left-color: #86efac;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">NETTOCAR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
@@ -182,10 +226,11 @@ $pending_payments = $con->query("SELECT COUNT(*) as count FROM payments WHERE st
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h1>Payment Management</h1>
+    <div class="container mt-5">
+        <div class="page-header">
+            <h1>Payment Management</h1>
+        </div>
 
-        <!-- Added success message for payment simulation -->
         <?php if (isset($_GET['success'])): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <?php echo htmlspecialchars($_GET['success']); ?>
@@ -193,30 +238,30 @@ $pending_payments = $con->query("SELECT COUNT(*) as count FROM payments WHERE st
             </div>
         <?php endif; ?>
 
-        <div class="row mb-4 g-3">
+        <div class="row g-4 mb-4">
             <div class="col-md-4">
                 <div class="stat-card revenue">
-                    <h5>Total Revenue</h5>
-                    <p class="display-5 mb-0">$<?php echo number_format($total_revenue, 2); ?></p>
+                    <div class="stat-label">Total Revenue</div>
+                    <p class="stat-value">$<?php echo number_format($total_revenue, 2); ?></p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-card completed">
-                    <h5>Completed</h5>
-                    <p class="display-5 mb-0"><?php echo $completed_payments; ?></p>
+                    <div class="stat-label">Completed</div>
+                    <p class="stat-value"><?php echo $completed_payments; ?></p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-card pending">
-                    <h5>Pending</h5>
-                    <p class="display-5 mb-0"><?php echo $pending_payments; ?></p>
+                    <div class="stat-label">Pending</div>
+                    <p class="stat-value"><?php echo $pending_payments; ?></p>
                 </div>
             </div>
         </div>
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>User</th>
@@ -238,18 +283,17 @@ $pending_payments = $con->query("SELECT COUNT(*) as count FROM payments WHERE st
                                 <td><strong>$<?php echo number_format($payment['amount'], 2); ?></strong></td>
                                 <td><?php echo htmlspecialchars(str_replace('_', ' ', ucfirst($payment['method']))); ?></td>
                                 <td>
-                                    <span class="badge" style="background-color: <?php echo $payment['status'] === 'completed' ? '#10b981' : ($payment['status'] === 'pending' ? '#f59e0b' : '#ef4444'); ?>; color: white;">
+                                    <span class="badge" style="background: <?php echo $payment['status'] === 'completed' ? 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' : ($payment['status'] === 'pending' ? 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)' : 'linear-gradient(135deg, #ef4444 0%, #f87171 100%)'); ?>; color: white;">
                                         <?php echo htmlspecialchars(ucfirst($payment['status'])); ?>
                                     </span>
                                 </td>
                                 <td><?php echo htmlspecialchars(date('M d, Y', strtotime($payment['date']))); ?></td>
                                 <td>
-                                    <!-- Added simulate payment button for pending payments -->
                                     <?php if ($payment['status'] === 'pending'): ?>
                                         <form method="POST" style="display: inline;">
                                             <input type="hidden" name="action" value="simulate_payment">
                                             <input type="hidden" name="payment_id" value="<?php echo $payment['id']; ?>">
-                                            <button type="submit" class="btn btn-simulate">Simulate</button>
+                                            <button type="submit" class="btn btn-sm btn-simulate">Simulate</button>
                                         </form>
                                     <?php else: ?>
                                         <span class="text-muted" style="font-size: 0.85rem;">-</span>

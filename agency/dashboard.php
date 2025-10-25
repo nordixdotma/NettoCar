@@ -32,190 +32,207 @@ if ($agency) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agency Dashboard - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../app/globals.css">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-light: #ff6b35;
-            --primary-dark: #e63e00;
-            --bg-light: #f8f9fa;
-            --border-color: #e0e0e0;
-            --text-dark: #1a1a1a;
-            --text-light: #666666;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
         }
-        
+
         .navbar {
-            background-color: white !important;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color) !important;
+            font-size: 1.4rem;
+            color: #ff4500 !important;
             letter-spacing: -0.5px;
         }
-        
+
         .nav-link {
-            color: var(--text-dark) !important;
+            color: #1a1a1a !important;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        
+
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            color: #ff4500 !important;
         }
-        
-        h1 {
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
             font-weight: 700;
             font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-dark);
+            color: #1a1a1a;
+            margin: 0;
         }
-        
-        h3 {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-        
+
         .info-card {
             background: white;
-            border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 1.5rem;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            height: 100%;
         }
-        
+
         .info-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
         }
-        
+
         .info-card h5 {
             font-weight: 600;
-            color: var(--text-dark);
+            color: #1a1a1a;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
-        
+
         .info-card p {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
         }
-        
+
         .info-card strong {
-            color: var(--text-dark);
+            color: #1a1a1a;
         }
-        
+
         .stat-card {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
             color: white;
-            border: none;
             border-radius: 6px;
             padding: 1.5rem;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            height: 100%;
         }
-        
+
         .stat-card:hover {
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 69, 0, 0.2);
+            transform: translateY(-4px);
         }
-        
-        .stat-card h5 {
-            font-weight: 600;
-            font-size: 0.95rem;
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 500;
             opacity: 0.95;
             margin-bottom: 0.75rem;
         }
-        
-        .stat-card p {
+
+        .stat-value {
             font-size: 2.5rem;
             font-weight: 700;
             margin: 0;
         }
-        
-        .btn {
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.6rem 1.2rem;
-            border: none;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(255, 69, 0, 0.2);
-        }
-        
-        .btn-success {
-            background-color: #10b981;
-        }
-        
-        .btn-success:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
-        }
-        
-        .btn-warning {
-            background-color: #f59e0b;
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background-color: #d97706;
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.2);
-        }
-        
+
         .quick-actions {
             background: white;
-            border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 1.5rem;
             margin-top: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
-        
+
+        .quick-actions h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 69, 0, 0.3);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+            color: white;
+        }
+
         .alert {
+            border: none;
             border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border-left: 4px solid;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            color: #92400e;
+            border-left-color: #fcd34d;
+        }
+
+        .alert-link {
+            color: #ff4500;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <!-- Modern navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="../index.php">🚗 NETTOCAR</a>
+            <a class="navbar-brand" href="../index.php">NETTOCAR</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link">🏢 <?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                        <span class="nav-link">Agency: <?php echo htmlspecialchars($_SESSION['name']); ?></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../auth/logout.php">🚪 Logout</a>
+                        <a class="nav-link" href="../auth/logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -223,37 +240,37 @@ if ($agency) {
     </nav>
 
     <div class="container mt-5">
-        <h1>🏢 Agency Dashboard</h1>
+        <div class="page-header">
+            <h1>Agency Dashboard</h1>
+        </div>
 
         <?php if ($agency): ?>
-            <!-- Modern info and stat cards -->
-            <div class="row">
-                <div class="col-md-6 mb-4">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
                     <div class="info-card">
                         <h5><?php echo htmlspecialchars($agency['name']); ?></h5>
-                        <p><strong>📍 Address:</strong> <?php echo htmlspecialchars($agency['address']); ?></p>
-                        <p><strong>🕐 Hours:</strong> <?php echo htmlspecialchars($agency['opening_hours']); ?></p>
-                        <p><strong>📦 Pack:</strong> <?php echo htmlspecialchars($agency['pack_name']); ?></p>
+                        <p><strong>Address:</strong> <?php echo htmlspecialchars($agency['address']); ?></p>
+                        <p><strong>Hours:</strong> <?php echo htmlspecialchars($agency['opening_hours']); ?></p>
+                        <p><strong>Pack:</strong> <?php echo htmlspecialchars($agency['pack_name']); ?></p>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                     <div class="stat-card">
-                        <h5>Today's Reservations</h5>
-                        <p><?php echo $today_reservations; ?></p>
+                        <div class="stat-label">Today's Reservations</div>
+                        <p class="stat-value"><?php echo $today_reservations; ?></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick actions section -->
             <div class="quick-actions">
-                <h3>⚡ Quick Actions</h3>
+                <h3>Quick Actions</h3>
                 <a href="services.php" class="btn btn-primary me-2">Manage Services</a>
                 <a href="reservations.php" class="btn btn-success me-2">View Reservations</a>
                 <a href="edit-agency.php" class="btn btn-warning">Edit Agency</a>
             </div>
         <?php else: ?>
             <div class="alert alert-warning" role="alert">
-                ⚠️ You don't have an agency yet. <a href="create-agency.php" class="alert-link">Create one now</a>
+                You don't have an agency yet. <a href="create-agency.php" class="alert-link">Create one now</a>
             </div>
         <?php endif; ?>
     </div>

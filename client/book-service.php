@@ -49,179 +49,179 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Book Service - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-dark: #e63e00;
-            --bg-light: #f8f9fa;
-            --border-radius: 6px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem 0;
         }
-        
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+        .booking-wrapper {
+            width: 100%;
+            max-width: 450px;
+            padding: 1rem;
         }
-        
-        .navbar-brand {
+
+        .booking-card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .booking-header {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .booking-header h1 {
+            font-size: 1.75rem;
             font-weight: 700;
-            font-size: 1.3rem;
+            margin: 0;
         }
-        
-        .nav-link {
-            font-weight: 500;
-            transition: opacity 0.2s;
+
+        .booking-body {
+            padding: 2rem 1.5rem;
         }
-        
-        .nav-link:hover {
-            opacity: 0.8;
+
+        .form-group {
+            margin-bottom: 1.25rem;
         }
-        
-        /* Modern booking form styling */
-        .card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .card-body {
-            padding: 2rem;
-        }
-        
-        .card-title {
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
-        }
-        
+
         .form-label {
-            font-weight: 500;
+            display: block;
+            font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
-        
+
         .form-control,
         .form-select {
-            border: 1px solid #e9ecef;
-            border-radius: var(--border-radius);
-            padding: 0.6rem 0.9rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
             font-size: 0.95rem;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
-        
+
         .form-control:focus,
         .form-select:focus {
-            border-color: var(--primary-color);
+            outline: none;
+            border-color: #ff4500;
             box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.1);
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            padding: 0.6rem 1.2rem;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
-        }
-        
-        .btn-secondary {
-            border-radius: var(--border-radius);
-            font-weight: 500;
-        }
-        
-        .alert {
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem 1rem;
             border: none;
-            border-radius: var(--border-radius);
-            border-left: 4px solid;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        
-        .alert-danger {
-            border-left-color: #dc3545;
-            background-color: #fff5f5;
-            color: #721c24;
+
+        .btn-book {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            color: white;
+            margin-top: 0.5rem;
         }
-        
-        .alert-success {
-            border-left-color: var(--primary-color);
-            background-color: #fff8f5;
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.3);
+        }
+
+        .btn-back {
+            background: #e9ecef;
             color: #1a1a1a;
+            margin-top: 0.75rem;
+        }
+
+        .btn-back:hover {
+            background: #dee2e6;
+            color: #1a1a1a;
+        }
+
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .alert-danger {
+            background-color: #fff5f5;
+            color: #c53030;
+            border-left-color: #fc8181;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            color: #166534;
+            border-left-color: #86efac;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="../index.php">NETTOCAR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../auth/logout.php">Logout</a>
-                    </li>
-                </ul>
+    <div class="booking-wrapper">
+        <div class="booking-card">
+            <div class="booking-header">
+                <h1>Book a Service</h1>
             </div>
-        </div>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title">Book a Service</h2>
+            <div class="booking-body">
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
 
-                        <?php if ($error): ?>
-                            <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-                        <?php endif; ?>
+                <?php if ($success): ?>
+                    <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
+                <?php endif; ?>
 
-                        <?php if ($success): ?>
-                            <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
-                        <?php endif; ?>
-
-                        <form method="POST" id="bookingForm">
-                            <div class="mb-3">
-                                <label for="agency_id" class="form-label">Select Agency</label>
-                                <select class="form-select" id="agency_id" name="agency_id" required onchange="loadServices()">
-                                    <option value="">Choose an agency...</option>
-                                    <?php while ($agency = $agencies->fetch_assoc()): ?>
-                                        <option value="<?php echo $agency['id']; ?>"><?php echo htmlspecialchars($agency['name']); ?></option>
-                                    <?php endwhile; ?>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="service_id" class="form-label">Select Service</label>
-                                <select class="form-select" id="service_id" name="service_id" required>
-                                    <option value="">Choose a service...</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="datetime" class="form-label">Date & Time</label>
-                                <input type="datetime-local" class="form-control" id="datetime" name="datetime" required>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100">Book Reservation</button>
-                        </form>
-
-                        <a href="dashboard.php" class="btn btn-secondary w-100 mt-2">Back to Dashboard</a>
+                <form method="POST" id="bookingForm">
+                    <div class="form-group">
+                        <label for="agency_id" class="form-label">Select Agency</label>
+                        <select class="form-select" id="agency_id" name="agency_id" required onchange="loadServices()">
+                            <option value="">Choose an agency...</option>
+                            <?php while ($agency = $agencies->fetch_assoc()): ?>
+                                <option value="<?php echo $agency['id']; ?>"><?php echo htmlspecialchars($agency['name']); ?></option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="service_id" class="form-label">Select Service</label>
+                        <select class="form-select" id="service_id" name="service_id" required>
+                            <option value="">Choose a service...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datetime" class="form-label">Date & Time</label>
+                        <input type="datetime-local" class="form-control" id="datetime" name="datetime" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-book">Book Reservation</button>
+                </form>
+
+                <a href="dashboard.php" class="btn btn-back">Back to Dashboard</a>
             </div>
         </div>
     </div>

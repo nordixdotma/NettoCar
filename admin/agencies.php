@@ -32,131 +32,176 @@ $agencies = $con->query("SELECT a.*, u.name as owner_name, p.name as pack_name F
     <title>Manage Agencies - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-dark: #e63e00;
-            --primary-light: #ff6b35;
-            --bg-light: #f8f9fa;
-            --border-radius: 6px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
         }
-        
-        /* Updated navbar with modern design */
+
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-radius: 0;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            color: #ff4500 !important;
             letter-spacing: -0.5px;
         }
-        
+
         .nav-link {
+            color: #1a1a1a !important;
             font-weight: 500;
-            transition: opacity 0.2s;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        
+
         .nav-link:hover {
-            opacity: 0.8;
+            color: #ff4500 !important;
         }
-        
-        /* Modern card and table styling */
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
         .card {
             border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            transition: box-shadow 0.2s;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: white;
         }
-        
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-        
+
         .table {
-            border-radius: var(--border-radius);
-            overflow: hidden;
+            margin-bottom: 0;
         }
-        
+
         .table thead {
-            background-color: var(--primary-color) !important;
+            background: #ff4500;
             color: white;
         }
-        
-        .table tbody tr {
+
+        .table thead th {
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
             border-bottom: 1px solid #e9ecef;
-            transition: background-color 0.2s;
+            vertical-align: middle;
         }
-        
+
         .table tbody tr:hover {
-            background-color: #f8f9fa;
+            background: #f9f9f9;
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: all 0.2s;
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
         }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
-        }
-        
-        .btn-danger {
-            border-radius: var(--border-radius);
-            font-weight: 500;
-        }
-        
+
         .badge {
             border-radius: 4px;
-            padding: 0.4rem 0.6rem;
+            padding: 0.4rem 0.8rem;
             font-weight: 500;
+            font-size: 0.85rem;
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            color: white;
         }
-        
-        h1 {
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            transition: all 0.2s ease;
         }
-        
+
+        .btn-primary {
+            background: #ff4500;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
         .alert {
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 6px;
             border-left: 4px solid;
+            margin-bottom: 1.5rem;
         }
-        
+
         .alert-danger {
-            border-left-color: #dc3545;
-            background-color: #fff5f5;
-            color: #721c24;
+            background: #fff5f5;
+            color: #c53030;
+            border-left-color: #fc8181;
         }
-        
+
         .alert-success {
-            border-left-color: var(--primary-color);
-            background-color: #fff8f5;
-            color: #1a1a1a;
+            background: #f0fdf4;
+            color: #166534;
+            border-left-color: #86efac;
+        }
+
+        .nav-link {
+            color: #1a1a1a !important;
+        }
+
+        .nav-link:hover {
+            color: #ff4500 !important;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">NETTOCAR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
@@ -169,8 +214,11 @@ $agencies = $con->query("SELECT a.*, u.name as owner_name, p.name as pack_name F
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h1>Manage Agencies</h1>
+    <div class="container mt-5">
+        <div class="page-header">
+            <h1>Manage Agencies</h1>
+            <a href="dashboard.php" class="btn btn-primary">Back to Dashboard</a>
+        </div>
 
         <?php if ($error): ?>
             <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
@@ -182,15 +230,15 @@ $agencies = $con->query("SELECT a.*, u.name as owner_name, p.name as pack_name F
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Agency Name</th>
                             <th>Owner</th>
                             <th>Address</th>
                             <th>Pack</th>
                             <th>Hours</th>
-                            <th>Actions</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -199,10 +247,10 @@ $agencies = $con->query("SELECT a.*, u.name as owner_name, p.name as pack_name F
                                 <td><strong><?php echo htmlspecialchars($agency['name']); ?></strong></td>
                                 <td><?php echo htmlspecialchars($agency['owner_name']); ?></td>
                                 <td><?php echo htmlspecialchars($agency['address']); ?></td>
-                                <td><span class="badge" style="background-color: var(--primary-light); color: white;"><?php echo htmlspecialchars($agency['pack_name']); ?></span></td>
+                                <td><span class="badge"><?php echo htmlspecialchars($agency['pack_name']); ?></span></td>
                                 <td><?php echo htmlspecialchars($agency['opening_hours']); ?></td>
                                 <td>
-                                    <a href="?delete=<?php echo $agency['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                    <a href="?delete=<?php echo $agency['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this agency?')">Delete</a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

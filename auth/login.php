@@ -54,149 +54,194 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../app/globals.css">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-light: #ff6b35;
-            --primary-dark: #e63e00;
-            --bg-light: #f8f9fa;
-            --border-color: #e0e0e0;
-            --text-dark: #1a1a1a;
-            --text-light: #666666;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        
-        .login-container {
+
+        .login-wrapper {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
+            padding: 1rem;
         }
-        
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-        }
-        
-        .card-body {
-            padding: 2.5rem;
-        }
-        
-        .card-title {
-            font-weight: 700;
-            font-size: 1.75rem;
-            color: var(--text-dark);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-control {
-            border: 1px solid var(--border-color);
+
+        .login-card {
+            background: white;
             border-radius: 6px;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
         }
-        
+
+        .login-header {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .login-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .login-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
         .form-control:focus {
-            border-color: var(--primary-color);
+            outline: none;
+            border-color: #ff4500;
             box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.1);
         }
-        
-        .btn-submit {
-            background-color: var(--primary-color);
+
+        .btn-login {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             font-weight: 600;
             font-size: 0.95rem;
-            padding: 0.75rem 1.5rem;
-            width: 100%;
-            transition: all 0.2s;
-            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
         }
-        
-        .btn-submit:hover {
-            background-color: var(--primary-dark);
+
+        .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
-            color: white;
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.3);
         }
-        
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
         .alert {
-            border-radius: 6px;
-            border: 1px solid #fee2e2;
-            background-color: #fef2f2;
-            color: #991b1b;
-            margin-bottom: 1.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid;
+            font-size: 0.9rem;
         }
-        
-        .register-link {
+
+        .alert-danger {
+            background-color: #fff5f5;
+            color: #c53030;
+            border-left-color: #fc8181;
+        }
+
+        .login-footer {
+            padding: 1.5rem;
             text-align: center;
-            margin-top: 1.5rem;
-            color: var(--text-light);
-            font-size: 0.95rem;
+            border-top: 1px solid #f0f0f0;
+            background: #fafafa;
         }
-        
-        .register-link a {
-            color: var(--primary-color);
+
+        .login-footer p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .login-footer a {
+            color: #ff4500;
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.2s;
+            transition: color 0.2s ease;
         }
-        
-        .register-link a:hover {
-            color: var(--primary-dark);
+
+        .login-footer a:hover {
+            color: #ff6b35;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-password a {
+            color: #ff4500;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #ff6b35;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <!-- Modern login card with gradient background -->
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">🚗 NETTOCAR</h2>
-                
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>NETTOCAR</h1>
+            </div>
+
+            <div class="login-body">
                 <?php if ($error): ?>
-                    <div class="alert"><?php echo htmlspecialchars($error); ?></div>
+                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?>
 
                 <form method="POST">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">📧 Email</label>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">🔐 Password</label>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
-                    <button type="submit" class="btn-submit">Login</button>
-                </form>
+                    <div class="forgot-password">
+                        <a href="forgot-password.php">Forgot password?</a>
+                    </div>
 
-                <p class="register-link">
-                    Don't have an account? <a href="register.php">Register here</a>
-                </p>
+                    <button type="submit" class="btn-login">Sign In</button>
+                </form>
+            </div>
+
+            <div class="login-footer">
+                <p>Don't have an account? <a href="register.php">Create one</a></p>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

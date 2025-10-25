@@ -63,141 +63,182 @@ $total_services = $con->query("SELECT COUNT(*) as count FROM services")->fetch_a
     <title>System Statistics - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-dark: #e63e00;
-            --primary-light: #ff6b35;
-            --bg-light: #f8f9fa;
-            --border-radius: 6px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
         }
-        
+
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            color: #ff4500 !important;
+            letter-spacing: -0.5px;
         }
-        
+
         .nav-link {
+            color: #1a1a1a !important;
             font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        
-        .nav-link:hover {
-            opacity: 0.8;
-        }
-        
-        .stat-card {
-            border: none;
-            border-radius: var(--border-radius);
-            color: white;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
-        
-        .stat-card.primary {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-        }
-        
-        .stat-card.success {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-        }
-        
-        .stat-card.info {
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-        }
-        
-        .stat-card.warning {
-            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-        }
-        
-        .stat-card h5 {
-            font-weight: 600;
             font-size: 0.9rem;
-            opacity: 0.95;
-            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
         }
-        
-        .stat-card .display-5 {
+
+        .nav-link:hover {
+            color: #ff4500 !important;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
             font-weight: 700;
             font-size: 2rem;
-        }
-        
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: var(--border-radius);
-            font-weight: 500;
-        }
-        
-        .btn-outline-primary:hover,
-        .btn-outline-primary.active {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-        
-        .card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        
-        .card-header {
-            background-color: transparent;
-            border-bottom: 1px solid #e9ecef;
-            padding: 1.25rem;
-        }
-        
-        .table {
-            border-radius: var(--border-radius);
-        }
-        
-        .table thead {
-            background-color: var(--primary-color) !important;
-            color: white;
-        }
-        
-        .table tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-        
-        h1 {
-            font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 1.5rem;
+            margin: 0;
         }
-        
-        /* Improved period filter buttons styling */
+
         .period-filter {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
+
+        .btn-period {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #ff4500;
+            color: #ff4500;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-period:hover,
+        .btn-period.active {
+            background: #ff4500;
+            color: white;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 6px;
+            color: white;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .stat-card.primary {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b35 100%);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .stat-card.info {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card {
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.25rem;
+        }
+
+        .card-header h5 {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            background: #ff4500;
+            color: white;
+        }
+
+        .table thead th {
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">NETTOCAR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
@@ -210,50 +251,49 @@ $total_services = $con->query("SELECT COUNT(*) as count FROM services")->fetch_a
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h1>System Statistics</h1>
-
-        <!-- Improved period filter with better styling -->
-        <div class="period-filter">
-            <a href="?period=week" class="btn btn-outline-primary <?php echo $period === 'week' ? 'active' : ''; ?>">This Week</a>
-            <a href="?period=month" class="btn btn-outline-primary <?php echo $period === 'month' ? 'active' : ''; ?>">This Month</a>
+    <div class="container mt-5">
+        <div class="page-header">
+            <h1>System Statistics</h1>
         </div>
 
-        <!-- System Overview -->
-        <div class="row mb-4 g-3">
+        <div class="period-filter">
+            <a href="?period=week" class="btn-period <?php echo $period === 'week' ? 'active' : ''; ?>">This Week</a>
+            <a href="?period=month" class="btn-period <?php echo $period === 'month' ? 'active' : ''; ?>">This Month</a>
+        </div>
+
+        <div class="row g-4 mb-4">
             <div class="col-md-3">
                 <div class="stat-card primary">
-                    <h5>Total Users</h5>
-                    <p class="display-5 mb-0"><?php echo $total_users; ?></p>
+                    <div class="stat-label">Total Users</div>
+                    <p class="stat-value"><?php echo $total_users; ?></p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card success">
-                    <h5>Total Agencies</h5>
-                    <p class="display-5 mb-0"><?php echo $total_agencies; ?></p>
+                    <div class="stat-label">Total Agencies</div>
+                    <p class="stat-value"><?php echo $total_agencies; ?></p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card info">
-                    <h5>Total Services</h5>
-                    <p class="display-5 mb-0"><?php echo $total_services; ?></p>
+                    <div class="stat-label">Total Services</div>
+                    <p class="stat-value"><?php echo $total_services; ?></p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card warning">
-                    <h5>Total Revenue</h5>
-                    <p class="display-5 mb-0">$<?php echo number_format($revenue_stats['total_revenue'] ?? 0, 0); ?></p>
+                    <div class="stat-label">Total Revenue</div>
+                    <p class="stat-value">$<?php echo number_format($revenue_stats['total_revenue'] ?? 0, 0); ?></p>
                 </div>
             </div>
         </div>
 
-        <!-- Period Statistics -->
-        <div class="row mb-4 g-3">
+        <div class="row g-4 mb-4">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total Reservations</h5>
-                        <p class="display-5 mb-0"><?php echo $overall_stats['total_reservations'] ?? 0; ?></p>
+                        <p class="stat-value"><?php echo $overall_stats['total_reservations'] ?? 0; ?></p>
                     </div>
                 </div>
             </div>
@@ -261,7 +301,7 @@ $total_services = $con->query("SELECT COUNT(*) as count FROM services")->fetch_a
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Completed</h5>
-                        <p class="display-5 mb-0"><?php echo $overall_stats['completed'] ?? 0; ?></p>
+                        <p class="stat-value"><?php echo $overall_stats['completed'] ?? 0; ?></p>
                     </div>
                 </div>
             </div>
@@ -269,7 +309,7 @@ $total_services = $con->query("SELECT COUNT(*) as count FROM services")->fetch_a
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">In Progress</h5>
-                        <p class="display-5 mb-0"><?php echo $overall_stats['in_progress'] ?? 0; ?></p>
+                        <p class="stat-value"><?php echo $overall_stats['in_progress'] ?? 0; ?></p>
                     </div>
                 </div>
             </div>
@@ -277,38 +317,35 @@ $total_services = $con->query("SELECT COUNT(*) as count FROM services")->fetch_a
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Waiting</h5>
-                        <p class="display-5 mb-0"><?php echo $overall_stats['waiting'] ?? 0; ?></p>
+                        <p class="stat-value"><?php echo $overall_stats['waiting'] ?? 0; ?></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Top Agencies -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">Top Agencies</h5>
+                <h5>Top Agencies</h5>
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Agency Name</th>
+                            <th>Reservations</th>
+                            <th>Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($agency = $top_agencies->fetch_assoc()): ?>
                             <tr>
-                                <th>Agency Name</th>
-                                <th>Reservations</th>
-                                <th>Revenue</th>
+                                <td><strong><?php echo htmlspecialchars($agency['name']); ?></strong></td>
+                                <td><?php echo $agency['reservations']; ?></td>
+                                <td>$<?php echo number_format($agency['revenue'], 2); ?></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($agency = $top_agencies->fetch_assoc()): ?>
-                                <tr>
-                                    <td><strong><?php echo htmlspecialchars($agency['name']); ?></strong></td>
-                                    <td><?php echo $agency['reservations']; ?></td>
-                                    <td>$<?php echo number_format($agency['revenue'], 2); ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -50,111 +50,175 @@ $stmt->close();
     <title>Manage Services - NETTOCAR</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #ff4500;
-            --primary-dark: #e63e00;
-            --bg-light: #f8f9fa;
-            --border-radius: 6px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background-color: var(--bg-light);
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
         }
-        
+
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            color: #ff4500 !important;
+            letter-spacing: -0.5px;
         }
-        
+
         .nav-link {
+            color: #1a1a1a !important;
             font-weight: 500;
-            transition: opacity 0.2s;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        
+
         .nav-link:hover {
-            opacity: 0.8;
+            color: #ff4500 !important;
         }
-        
-        /* Modern table and button styling */
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
         .card {
             border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: white;
         }
-        
+
         .table {
-            border-radius: var(--border-radius);
+            margin-bottom: 0;
         }
-        
+
         .table thead {
-            background-color: var(--primary-color) !important;
+            background: #ff4500;
             color: white;
         }
-        
+
+        .table thead th {
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
         .table tbody tr:hover {
-            background-color: #f8f9fa;
+            background: #f9f9f9;
         }
-        
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
         .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: all 0.2s;
+            background: #ff4500;
+            color: white;
         }
-        
+
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
+            background: #ff6b35;
+            color: white;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
         }
-        
-        .btn-warning,
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+            color: white;
+            transform: translateY(-1px);
+        }
+
         .btn-danger {
-            border-radius: var(--border-radius);
-            font-weight: 500;
+            background: #ef4444;
+            color: white;
         }
-        
-        h1 {
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
+
+        .btn-danger:hover {
+            background: #dc2626;
+            color: white;
+            transform: translateY(-1px);
         }
-        
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
         .alert {
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 6px;
             border-left: 4px solid;
+            margin-bottom: 1.5rem;
         }
-        
+
         .alert-danger {
-            border-left-color: #dc3545;
-            background-color: #fff5f5;
-            color: #721c24;
+            background: #fff5f5;
+            color: #c53030;
+            border-left-color: #fc8181;
         }
-        
+
         .alert-success {
-            border-left-color: var(--primary-color);
-            background-color: #fff8f5;
+            background: #f0fdf4;
+            color: #166534;
+            border-left-color: #86efac;
+        }
+
+        h1 {
+            font-weight: 700;
             color: #1a1a1a;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">NETTOCAR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Dashboard</a>
@@ -167,8 +231,11 @@ $stmt->close();
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h1>Manage Services</h1>
+    <div class="container mt-5">
+        <div class="page-header">
+            <h1>Manage Services</h1>
+            <a href="add-service.php" class="btn btn-primary">Add New Service</a>
+        </div>
 
         <?php if ($error): ?>
             <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
@@ -178,11 +245,9 @@ $stmt->close();
             <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
         <?php endif; ?>
 
-        <a href="add-service.php" class="btn btn-primary mb-3">Add New Service</a>
-
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Service Name</th>
@@ -199,7 +264,7 @@ $stmt->close();
                                 <td><?php echo $service['estimated_duration_minutes']; ?></td>
                                 <td>
                                     <a href="edit-service.php?id=<?php echo $service['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="?delete=<?php echo $service['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                    <a href="?delete=<?php echo $service['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this service?')">Delete</a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
