@@ -52,16 +52,28 @@ $stmt->execute();
 $reservations = $stmt->get_result();
 $stmt->close();
 
-// Generate CSV
+$filename = 'reservations_' . $agency['name'] . '_' . date('Y-m-d_H-i-s') . '.csv';
+
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename="reservations_' . date('Y-m-d_H-i-s') . '.csv"');
+header('Content-Disposition: attachment; filename="' . $filename . '"');
 
 $output = fopen('php://output', 'w');
 
-// Write header
-fputcsv($output, ['Reservation ID', 'Client Name', 'Email', 'Service', 'Price', 'Date & Time', 'Status']);
+// Write BOM for Excel UTF-8 compatibility
+fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
 
-// Write data
+// Write header with better formatting
+fputcsv($output, [
+    'Reservation ID',
+    'Client Name',
+    'Email',
+    'Service',
+    'Price',
+    'Date & Time',
+    'Status'
+]);
+
+// Write data with proper formatting
 while ($row = $reservations->fetch_assoc()) {
     fputcsv($output, [
         $row['id'],
@@ -69,8 +81,8 @@ while ($row = $reservations->fetch_assoc()) {
         $row['email'],
         $row['service_name'],
         '$' . number_format($row['price'], 2),
-        $row['datetime'],
-        $row['status']
+        date('Y-m-d H:i:s', strtotime($row['datetime'])),
+        ucfirst($row['status'])
     ]);
 }
 

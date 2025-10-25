@@ -1,125 +1,137 @@
-# NETTOCAR - Car Wash Agency Management System
+# 🚗 NETTOCAR - Car Service Booking Platform
 
-A PHP + MySQL backend for managing car-wash agencies, services, reservations, and subscription packs.
+A modern, full-stack web application for managing car rental and service bookings. Built with PHP, MySQL, and Bootstrap for a seamless user experience.
 
-## Setup Instructions
+## ✨ Features
 
-### 1. Database Setup
+### 👤 User Roles
+- **Admin** - Manage agencies, view payments, and monitor system statistics
+- **Agency** - Create and manage services, handle reservations, and track bookings
+- **Client** - Browse services, book appointments, and manage reservations
 
-1. Open phpMyAdmin or MySQL command line
-2. Run the SQL schema from `database/schema.sql`:
-   \`\`\`sql
-   CREATE DATABASE IF NOT EXISTS nettocar;
-   USE nettocar;
-   -- Run all SQL from schema.sql file
+### 🎯 Core Functionality
+- 🔐 **Secure Authentication** - User registration and login with password hashing
+- 📅 **Reservation System** - Book services with date/time selection
+- 💳 **Payment Processing** - Secure payment handling and history tracking
+- 📊 **Analytics Dashboard** - Real-time statistics and insights
+- 🏢 **Agency Management** - Create, edit, and manage service agencies
+- 🔧 **Service Management** - Add and customize services with pricing
+
+### 🎨 Modern UI/UX
+- Clean, minimalist design with #ff4500 (OrangeRed) primary color
+- Responsive layout for mobile and desktop
+- Smooth transitions and hover effects
+- Compact design with reduced corner radius
+- Intuitive navigation and quick actions
+
+## 🛠️ Tech Stack
+
+- **Backend**: PHP 7.4+
+- **Database**: MySQL 5.7+
+- **Frontend**: HTML5, CSS3, Bootstrap 5
+- **Security**: Password hashing, SQL prepared statements, session management
+
+## 📋 Requirements
+
+- PHP 7.4 or higher
+- MySQL 5.7 or higher
+- Web server (Apache, Nginx, etc.)
+- Modern web browser
+
+## 🚀 Installation
+
+1. **Clone the repository**
+   \`\`\`bash
+   git clone https://github.com/yourusername/nettocar.git
+   cd nettocar
    \`\`\`
 
-### 2. Configuration
+2. **Setup Database**
+   - Create a new MySQL database
+   - Import `database/schema.sql`
+   - Update database credentials in `config/db.php`
 
-1. Update `config/db.php` with your database credentials:
+3. **Configure Database Connection**
    \`\`\`php
-   $host = "localhost";
-   $user = "root";
-   $password = "";
-   $database = "nettocar";
+   // config/db.php
+   $con = new mysqli("localhost", "username", "password", "nettocar");
    \`\`\`
 
-### 3. Running the Application
+4. **Create Admin Account**
+   \`\`\`bash
+   php create_admin.php
+   \`\`\`
 
-1. Place the project in your web server directory (htdocs for XAMPP, www for WAMP)
-2. Access the application at `http://localhost/nettocar/`
+5. **Start your web server**
+   - Place files in your web root directory
+   - Access via `http://localhost/nettocar`
 
-## Project Structure
+## 📁 Project Structure
 
 \`\`\`
 nettocar/
-├── config/
-│   ├── db.php              # Database connection
-│   └── session.php         # Session management
-├── auth/
-│   ├── register.php        # User registration
-│   ├── login.php           # User login
-│   └── logout.php          # User logout
-├── admin/
-│   ├── dashboard.php       # Admin dashboard
-│   ├── agencies.php        # Manage agencies
-│   └── payments.php        # View payments
-├── agency/
-│   ├── dashboard.php       # Agency dashboard
-│   ├── services.php        # Manage services
-│   ├── reservations.php    # View reservations
-│   ├── create-agency.php   # Create agency
-│   └── edit-agency.php     # Edit agency
-├── client/
-│   ├── dashboard.php       # Client dashboard
-│   └── book-service.php    # Book service
-├── database/
-│   └── schema.sql          # Database schema
-└── index.php               # Home page
+├── admin/              # Admin dashboard and management pages
+├── agency/             # Agency dashboard and service management
+├── client/             # Client dashboard and booking pages
+├── auth/               # Authentication pages (login, register, etc.)
+├── payments/           # Payment processing pages
+├── api/                # API endpoints
+├── config/             # Database and session configuration
+├── database/           # Database schema
+├── public/             # Static assets (images, logos)
+├── styles/             # CSS stylesheets
+├── app/                # Application configuration
+└── index.php           # Homepage
 \`\`\`
 
-## Features
+## 🔐 Security Features
 
-### Authentication
-- User registration (Client, Agency Owner)
-- Secure login with password hashing
-- Session management
-- Role-based access control
+- ✅ SQL Injection Prevention (Prepared Statements)
+- ✅ Password Hashing (bcrypt)
+- ✅ Session Management
+- ✅ Input Validation
+- ✅ CSRF Protection Ready
 
-### Subscription Packs
-- **Basic**: 10 reservations/day, no statistics
-- **Standard**: Unlimited reservations, weekly statistics
-- **Premium**: Unlimited, statistics + CSV export
+## 📱 Responsive Design
 
-### Agency Management
-- Create, edit, delete agencies
-- Manage services and pricing
-- View reservations
+- Mobile-first approach
+- Optimized for all screen sizes
+- Touch-friendly interface
+- Fast loading times
 
-### Reservations
-- Book services
-- View today/week reservations
-- Update reservation status (waiting, in_progress, finished)
+## 🎨 Design System
 
-### Payments
-- Record pack purchases
-- Payment history
-- Simulated payment processing
+### Color Palette
+- **Primary**: #ff4500 (OrangeRed)
+- **Primary Light**: #ff6b35
+- **Primary Dark**: #e63e00
+- **Success**: #10b981
+- **Warning**: #f59e0b
+- **Info**: #3b82f6
 
-### Statistics
-- Weekly/monthly reservation counts
-- Revenue calculations
-- CSV export (Premium only)
+### Typography
+- **Font Family**: System fonts (-apple-system, BlinkMacSystemFont, Segoe UI, Roboto)
+- **Headings**: Bold, 600-700 weight
+- **Body**: Regular, 400-500 weight
 
-## Security Features
+## 🤝 Contributing
 
-- Prepared statements (mysqli) to prevent SQL injection
-- Password hashing with bcrypt
-- Session-based authentication
-- Role-based access control
-- CSRF protection ready
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Default Test Accounts
+## 📄 License
 
-After running the schema, you can create test accounts:
-- Admin account (register with admin role)
-- Agency account (register as agency owner)
-- Client account (register as client)
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## API Endpoints (Future Enhancement)
+## 📞 Support
 
-The system is ready to be extended with REST API endpoints:
-- POST /api/auth/register
-- POST /api/auth/login
-- CRUD /api/agencies
-- CRUD /api/services
-- POST /api/reservations
-- GET /api/statistics
-- GET /api/export/reservations.csv
+For support, email support@nettocar.com or open an issue on GitHub.
 
-## Notes
+## 🙏 Acknowledgments
 
-- All passwords are hashed using bcrypt
-- Database uses UTF-8 encoding
-- Timestamps are automatically managed
-- Foreign key constraints ensure data integrity
+- Bootstrap 5 for responsive components
+- PHP community for excellent documentation
+- All contributors and users
+
+---
+
+**Made with ❤️ by the NETTOCAR Team**
